@@ -46,59 +46,47 @@ var firstSelection = function() {
   var select = itemChoice[track.img1];
   select.votes++;
   console.log(select.name + ' has ' + select.votes + ' votes');
-
-  var voteAgain = document.createElement('button');
-  voteAgain.setAttribute('id', 'vote');
-  voteAgain.textContent = ('Click Here to Vote Again!');
-  document.body.appendChild(voteAgain);
-  function hideButton() {
-    document.getElementById('vote').style.display = '';
-  }
-}
+  startItemDisplay();
+};
 var secondSelection = function() {
   var select = itemChoice[track.img2];
   select.votes++;
   console.log(select.name + ' has ' + select.votes + ' votes');
-
-  var voteAgain = document.createElement('button');
-  voteAgain.setAttribute('id', 'vote');
-  voteAgain.textContent = ('Click Here to Vote Again!');
-  document.body.appendChild(voteAgain);
-  function hideButton() {
-    document.getElementById('vote').style.display = '';
-  }
-}
+  startItemDisplay();
+};
 var thirdSelection = function() {
   var select = itemChoice[track.img3];
   select.votes++;
   console.log(select.name + ' has ' + select.votes + ' votes');
+  startItemDisplay();
 
-  var voteAgain = document.createElement('button');
-  voteAgain.setAttribute('id', 'vote');
-  voteAgain.textContent = ('Click Here to Vote Again!');
-  document.body.appendChild(voteAgain);
-  function hideButton() {
-    document.getElementById('vote').style.display = '';
-  }
+  // var voteAgain = document.createElement('button');
+  // voteAgain.setAttribute('id', 'vote');
+  // voteAgain.textContent = ('Click Here to Vote Again!');
+  // document.body.appendChild(voteAgain);
+  // function hideButton() {
+  //   document.getElementById('vote').style.display = '';
+  // }
 }
 
 pic1.addEventListener('click', firstSelection);
 pic2.addEventListener('click', secondSelection);
 pic3.addEventListener('click', thirdSelection);
 
-var bag = new ProductPhoto('bag', '../img/bag.jpg');
-var banana = new ProductPhoto('banana', '../img/banana.jpg');
-var boots = new ProductPhoto('boots', '../img/boots.jpg');
-var chair = new ProductPhoto('chair', '../img/chair.jpg');
-var cthulhu = new ProductPhoto('cthulhu', '../img/cthulhu.jpg');
-var dragon = new ProductPhoto('dragon', '../img/dragon.jpg');
-var pen = new ProductPhoto('pen', '../img/pen.jpg');
-var scissors = new ProductPhoto('scissors', '../img/scissors.jpg');
-var shark = new ProductPhoto('shark', '../img/shark.jpg');
-var sweep = new ProductPhoto('sweep', '../img/sweep.jpg');
-var unicorn = new ProductPhoto('unicorn', '../img/unicorn.jpg');
-var usb = new ProductPhoto('usb', '../img/usb.jpg');
-var water_can = new ProductPhoto('water can', '../img/water_can.jpg');
-var wine_glass = new ProductPhoto('wine glass', '../img/wine_glass.jpg');
+
+var bag = new ProductPhoto('bag', 'img/bag.jpg');
+var banana = new ProductPhoto('banana', 'img/banana.jpg');
+var boots = new ProductPhoto('boots', 'img/boots.jpg');
+var chair = new ProductPhoto('chair', 'img/chair.jpg');
+var cthulhu = new ProductPhoto('cthulhu', 'img/cthulhu.jpg');
+var dragon = new ProductPhoto('dragon', 'img/dragon.jpg');
+var pen = new ProductPhoto('pen', 'img/pen.jpg');
+var scissors = new ProductPhoto('scissors', 'img/scissors.jpg');
+var shark = new ProductPhoto('shark', 'img/shark.jpg');
+var sweep = new ProductPhoto('sweep', 'img/sweep.png');
+var unicorn = new ProductPhoto('unicorn', 'img/unicorn.jpg');
+var usb = new ProductPhoto('usb', 'img/usb.gif');
+var water_can = new ProductPhoto('water can', 'img/water_can.jpg');
+var wine_glass = new ProductPhoto('wine glass', 'img/wine_glass.jpg');
 ProductPhoto();
 startItemDisplay();

@@ -7,10 +7,7 @@ function ProductPhoto(name, path) {
   this.path = path;
   this.votes = 0;
   itemChoice.push(this);
-  // this.voteRate = function(){
-	// 	return this.tally / this.views;
-	// };
-}
+};
 
 function buildAlbum() {
   for(var i = 0; i < images.length; i++) {
@@ -36,7 +33,7 @@ var pic3 = document.getElementById('pic3');
 function generateRandom () {
   return Math.floor(Math.random() * images.length);
 }
-//display items and check for dups///
+
 startItemDisplay = function() {
   tracker.img1 = generateRandom();
   tracker.img2 = generateRandom();
@@ -96,7 +93,6 @@ pic3.addEventListener('click', thirdSelection);
 var tblSection = document.getElementById('tblSection');
 var table = document.getElementById('table');
 results.addEventListener("click", function(){
-  // console.log('googa');
 
 		for (i = 1 ; i < images.length ; i++){
 			var row = document.createElement("tr");
@@ -113,40 +109,3 @@ results.addEventListener("click", function(){
 
 ProductPhoto();
 startItemDisplay();
-// pic1.addEventListener('click', function() {
-//   tracker.img1.votes += 1;
-//   console.log(tracker.img1.votes);
-//   tracker.totalClicks += 1;
-//   ProductPhoto.votes += 1;
-//   showResults();
-//   startItemDisplay();
-// });
-// pic2.addEventListener('click', function() {
-//   tracker.img2.votes += 1;
-//   tracker.totalClicks += 1;
-//   ProductPhoto.votes += 1;
-//   showResults();
-//   startItemDisplay();
-// });
-// pic3.addEventListener('click', function() {
-//   tracker.img3.votes += 1;
-//   tracker.totalClicks += 1;
-//   ProductPhoto.votes += 1;
-//   showResults();
-//   startItemDisplay();
-// });
-// function checkZero(){
-// 	for (i = 0 ; i < itemChoice.length ; i++){
-// 		if (itemChoice[i].views === 0){
-// 			return true;
-// 		}
-// 	}
-// }
-//
-// function productSort(){
-// 	if (!checkZero()){
-// 	itemChoice.sort(compare(itemChoice[i].voteRate(), itemChoice[i +1]).voteRate());
-// 	} else {
-// 		console.log("insufficient data");
-// 	}
-// }

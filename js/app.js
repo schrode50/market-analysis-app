@@ -1,111 +1,124 @@
-var itemChoice = [];
-var images = ["boots", "chair", "scissors", "water_can", "wine_glass", "bag", "banana", "cthulhu", "dragon", "pen", "shark", "sweep",
-"unicorn", "usb"]
+var allProducts=[];
+var productName = ['bag','banana','boots','chair','cthulhu','dragon','pen','scissors','shark','sweep','unicorn','usb','water_can','wine_glass'];
 
-function ProductPhoto(name, path) {
-  this.name = name;
-  this.path = path;
-  this.votes = 0;
-  itemChoice.push(this);
-};
-
-function buildAlbum() {
-  for(var i = 0; i < images.length; i++) {
-    new ProductPhoto(images[i], '../img/' + images[i] + '.jpg');
-  }
-}
-buildAlbum();
-
-var tracker = {
-  totalClicks: 0,
-  img1: null,
-  img2: null,
-  img3: null
-};
-
-var photo1 = document.createElement('img');
-var photo2 = document.createElement('img');
-var photo3 = document.createElement('img');
-var pic1 = document.getElementById('pic1');
-var pic2 = document.getElementById('pic2');
-var pic3 = document.getElementById('pic3');
-
-function generateRandom () {
-  return Math.floor(Math.random() * images.length);
-}
-
-startItemDisplay = function() {
-  tracker.img1 = generateRandom();
-  tracker.img2 = generateRandom();
-  tracker.img3 = generateRandom();
-  photo1.src = itemChoice[tracker.img1].path;
-
-  if(tracker.img1 === tracker.img2) {
-    tracker.img2 = generateRandom();
-  }
-  photo2.src = itemChoice[tracker.img2].path;
-
-  if((tracker.img1 === tracker.img3) || (tracker.img2 === tracker.img3)) {
-    tracker.img3 = generateRandom();
-  }
-  photo3.src = itemChoice[tracker.img3].path;
-
-  pic1.appendChild(photo1);
-  pic2.appendChild(photo2);
-  pic3.appendChild(photo3);
-}
-
-var firstSelection = function() {
-var select = itemChoice[tracker.img1];
-  tracker.totalClicks += 1;
-  select.votes++;
-  console.log(select.name + ' has ' + select.votes + ' votes');
-  startItemDisplay();
-  showResults();
-};
-var secondSelection = function() {
-  var select = itemChoice[tracker.img2];
-  tracker.totalClicks += 1;
-  select.votes++;
-  startItemDisplay();
-  showResults();
-};
-var thirdSelection = function() {
-  var select = itemChoice[tracker.img3];
-  tracker.totalClicks += 1;
-  select.votes++;
-  startItemDisplay();
-  showResults();
-};
+var data = {
+    labels: [],
+    datasets: [
+        {
+        label: "HUH",
+        fillColor: '#3D93FF',
+        strokeColor: "rgba(220,220,220,0.8)",
+        highlightFill: "rgba(220,220,220,0.75)",
+        highlightStroke: "rgba(220,220,220,1)",
+        data: []
+}]};
 
 var resultsEl = document.getElementById('results');
-var showResults = function() {
-  // console.log(tracker.totalClicks);
-  if (tracker.totalClicks % 15 === 0) {
-    resultsEl.hidden = false;
-  }
-};
 
-pic1.addEventListener('click', firstSelection);
-pic2.addEventListener('click', secondSelection);
-pic3.addEventListener('click', thirdSelection);
+function Product (imageName, filePath) {
+  this.imageName = imageName;
+  this.filePath = filePath;
+  this.tally = 0;
+  this.views = 0;
+  allProducts.push(this);
+  data.labels.push(imageName);
+  data.datasets[0].data.push(0);
+}
 
-var tblSection = document.getElementById('tblSection');
-var table = document.getElementById('table');
-results.addEventListener("click", function(){
+function buildAlbum() {
+  for (var i = 0; i<productName.length; i++){
+    new Product(productName[i], '../img/' + productName[i] + '.jpg');
+}};
+buildAlbum();
 
-		for (i = 1 ; i < images.length ; i++){
-			var row = document.createElement("tr");
-			var th = document.createElement("th");
-			var td1 = document.createElement("td");
-      th.textContent = itemChoice[i].name;
-			td1.textContent = itemChoice[i].votes;
+var productRank = {
+  totalClicks: 0,
+  leftObj: null,
+  middleObj: null,
+  rightObj: null,
+  resultsEl: document.getElementById('results'),
+  leftEl: document.getElementById('img1'),
+  middleEl: document.getElementById('img2'),
+  rightEl: document.getElementById('img3'),
 
-			row.appendChild(th);
-			row.appendChild(td1);
-      table.appendChild(row);
-		}
+  getRandomIndex: function() {
+    return Math.floor(Math.random() * productName.length);
+  },
+  displayImages: function() {
+    productRank.leftObj = allProducts[productRank.getRandomIndex()];
+    productRank.middleObj = allProducts[productRank.getRandomIndex()];
+    productRank.rightObj = allProducts[productRank.getRandomIndex()];
+
+    if (productRank.leftObj === productRank.middleObj || productRank.leftObj === productRank.rightObj || productRank.rightObj === productRank.middleObj){
+      productRank.displayImages();
+    }
+
+    productRank.leftEl.src = productRank.leftObj.filePath;
+    productRank.leftEl.id = productRank.leftObj.imageName;
+
+    productRank.middleEl.src = productRank.middleObj.filePath;
+    productRank.middleEl.id = productRank.middleObj.imageName;
+
+    productRank.rightEl.src = productRank.rightObj.filePath;
+    productRank.rightEl.id = productRank.rightObj.imageName;
+  },
+
+  tallyClicks: function(elId) {
+    for(var i in allProducts){
+      if(allProducts[i].imageName === elId) {
+        allProducts[i].tally +=1;
+        this.totalClicks +=1;
+        console.log(allProducts[i].imageName + ' has ' + allProducts[i].tally);
+        data.datasets[0].data[i] = allProducts[i].tally;
+  }}},
+
+  showResults: function(){
+    if (this.totalClicks % 15 === 0) {
+      this.resultsEl.hidden = false;
+        productRank.leftEl.removeEventListener('click', false);
+        productRank.middleEl.removeEventListener('click', false);
+        productRank.rightEl.removeEventListener('click', false);
+    } else {
+        this.resultsEl.hidden = true;
+}}};
+
+productRank.leftEl.addEventListener('click', function(){
+  productRank.tallyClicks(productRank.leftEl.id);
+  productRank.displayImages();
+  productRank.showResults();
 });
 
-ProductPhoto();
-startItemDisplay();
+productRank.middleEl.addEventListener('click', function(){
+  productRank.tallyClicks(productRank.middleEl.id);
+  productRank.displayImages();
+  productRank.showResults();
+});
+
+productRank.rightEl.addEventListener('click', function(){
+  productRank.tallyClicks(productRank.rightEl.id);
+  productRank.displayImages();
+  productRank.showResults();
+});
+
+productRank.leftEl.addEventListener('click', productRank.displayImages);
+productRank.middleEl.addEventListener('click', productRank.displayImages);
+productRank.rightEl.addEventListener('click', productRank.displayImages);
+
+  function voteTable() {
+  var catalogVotesEl = document.getElementById('votes');
+  var tbEl = document.createElement('table');
+
+  var prodChart = document.getElementById('prodChart').getContext('2d');
+  new Chart(prodChart).Bar(data);
+}
+
+productRank.displayImages();
+productRank.resultsEl.addEventListener('click', function(){
+refresh.hidden=false;
+
+voteTable();
+});
+
+refresh.addEventListener('click', function(){
+  window.location.reload()
+})

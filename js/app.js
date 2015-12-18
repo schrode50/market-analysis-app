@@ -2,16 +2,16 @@ var allProducts=[];
 var productName = ['bag','banana','boots','chair','cthulhu','dragon','pen','scissors','shark','sweep','unicorn','usb','water_can','wine_glass'];
 
 var data = {
-    labels: [],
-    datasets: [
-        {
-        label: "HUH",
-        fillColor: '#3D93FF',
-        strokeColor: "rgba(220,220,220,0.8)",
-        highlightFill: "rgba(220,220,220,0.75)",
-        highlightStroke: "rgba(220,220,220,1)",
-        data: []
-}]};
+  labels: [],
+  datasets: [
+    {
+      label: 'HUH',
+      fillColor: '#3D93FF',
+      strokeColor: 'rgba(220,220,220,0.8)',
+      highlightFill: 'rgba(220,220,220,0.75)',
+      highlightStroke: 'rgba(220,220,220,1)',
+      data: []
+    }]};
 
 var resultsEl = document.getElementById('results');
 
@@ -70,17 +70,17 @@ var productRank = {
         this.totalClicks +=1;
         console.log(allProducts[i].imageName + ' has ' + allProducts[i].tally);
         data.datasets[0].data[i] = allProducts[i].tally;
-  }}},
+      }}},
 
   showResults: function(){
     if (this.totalClicks % 15 === 0) {
       this.resultsEl.hidden = false;
-        productRank.leftEl.removeEventListener('click', false);
-        productRank.middleEl.removeEventListener('click', false);
-        productRank.rightEl.removeEventListener('click', false);
+      productRank.leftEl.removeEventListener('click', false);
+      productRank.middleEl.removeEventListener('click', false);
+      productRank.rightEl.removeEventListener('click', false);
     } else {
-        this.resultsEl.hidden = true;
-}}};
+      this.resultsEl.hidden = true;
+    }}};
 
 productRank.leftEl.addEventListener('click', function(){
   productRank.tallyClicks(productRank.leftEl.id);
@@ -104,7 +104,7 @@ productRank.leftEl.addEventListener('click', productRank.displayImages);
 productRank.middleEl.addEventListener('click', productRank.displayImages);
 productRank.rightEl.addEventListener('click', productRank.displayImages);
 
-  function voteTable() {
+function voteTable() {
   var catalogVotesEl = document.getElementById('votes');
   var tbEl = document.createElement('table');
 
@@ -114,11 +114,11 @@ productRank.rightEl.addEventListener('click', productRank.displayImages);
 
 productRank.displayImages();
 productRank.resultsEl.addEventListener('click', function(){
-refresh.hidden=false;
+  refresh.hidden = false;
 
-voteTable();
+  voteTable();
 });
 
 refresh.addEventListener('click', function(){
-  window.location.reload()
-})
+  window.location.reload();
+});
